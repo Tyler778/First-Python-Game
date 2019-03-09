@@ -12,6 +12,9 @@ monster = {
 game_running = True
 
 while game_running == True:
+
+  player_won = False
+  monster_won = False
   print("Please select action")
   print("1) Attack")
   print("2) Heal")
@@ -20,7 +23,12 @@ while game_running == True:
 
   if int(player_choice) == 1:
     monster['health'] -= player['attack']
-    player['health'] -= monster['attack']
+    if monster['health'] <= 0:
+      player_won = True
+    else:
+      player['health'] -= monster['attack']
+      if player['health'] <= 0:
+        monster_won = True
     print(player['health'])
     print(monster['health'])
 
@@ -30,5 +38,5 @@ while game_running == True:
   else:
     print("Enter valid input")
 
-  if player['health'] <= 0 and monster['health'] <= 0:
+  if player_won == True or monster_won == True:
     game_running = False
